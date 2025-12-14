@@ -1,6 +1,81 @@
-/* kiosk_styles.css */
-body { margin: 0; font-family: sans-serif; }
-#tab-mask { /* ... your masking styles ... */ }
-.nav-button { /* ... your button styles ... */ }
-.nav-button.active { /* ... active state styling ... */ }
-/* ... all other styles ... */
+/* lista_style.css */
+
+/* Reset basic body margin */
+body {
+    margin: 0;
+    overflow: hidden; /* Prevent body scrollbars */
+    font-family: Arial, sans-serif;
+}
+
+/* --- IFRAME SETUP AND TAB MASK --- */
+
+#sheetFrame {
+    position: fixed;
+    top: 50px; /* Adjust this to leave room for your nav/clock */
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 50px); /* Fill the rest of the screen height */
+    border: none;
+    z-index: 1; 
+}
+
+/* The Mask: Sits above the iframe's tabs but below the nav buttons */
+#tab-mask {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 35px; /* Needs to be wide enough to cover Google's tabs */
+    background-color: #f0f0f0; /* Match your page background or use a neutral color */
+    z-index: 99; /* Higher than the iframe */
+}
+
+/* --- NAVIGATION BUTTON STYLES --- */
+
+#nav-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start; /* Aligns tabs to the left */
+    background-color: #333; /* Dark background for the header area */
+    padding-left: 10px;
+    z-index: 100; /* Must be highest to ensure clicks register */
+    height: 50px;
+    align-items: center;
+}
+
+.nav-button {
+    /* Style the button as a link to trigger page reload */
+    background: none;
+    border: none;
+    color: #fff;
+    padding: 10px 15px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s;
+    margin-right: 5px; /* Spacing between buttons */
+}
+
+.nav-button:hover {
+    background-color: #555;
+}
+
+.nav-button.active {
+    /* Style for the currently visible tab */
+    background-color: #007bff; /* Highlight color */
+    color: white;
+    font-weight: bold;
+}
+
+/* --- OPTIONAL: CLOCK STYLES --- */
+#clock {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: white;
+    font-size: 20px;
+    z-index: 101;
+}
