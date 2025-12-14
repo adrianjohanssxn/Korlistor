@@ -5,20 +5,19 @@
 // 1. List of ALL GIDs (9 GIDs total, index 0 through 8)
 // Get these from your Google Sheet URL (the number after &gid=).
 const TAB_GIDS = [
-    '[GID_FOR_DAG_0_IDAG]', // index 0 (Idag)
-    '[GID_FOR_DAG_1]',      // index 1 
-    '[GID_FOR_DAG_2]',      // index 2
-    '[GID_FOR_DAG_3]',      // index 3
-    '[GID_FOR_DAG_4]',      // index 4
-    '[GID_FOR_DAG_5]',      // index 5
-    '[GID_FOR_DAG_6]',      // index 6
-    '[GID_FOR_DAG_7]',      // index 7
-    '[GID_FOR_DAG_8]',      // index 8 (The ninth day)
+    '1636624790', // index 0 (Idag)
+    '1204403917',      // index 1 
+    '674604999',      // index 2
+    '1153946543',      // index 3
+    '780547244',      // index 4
+    '130124250',      // index 5
+    '323917698',      // index 6
+    '510183968',      // index 7
 ];
 
 // 2. Base URL information
 // Get the long ID from your sheet URL: /d/YOUR_SHEET_KEY_HERE/edit
-const SHEET_KEY = '[YOUR_SPREADSHEET_KEY_HERE]'; 
+const SHEET_KEY = '1g-lihq6fKE0kCmiLdlgjaOfyJ6PcFHr14pH5VC9sxZo'; 
 const SHEET_BASE_URL = `https://docs.google.com/spreadsheets/d/${SHEET_KEY}/edit?single=true&widget=false&chrome=false&readonly=true&gid=`;
 
 // 3. Current Tab Identification
