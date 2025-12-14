@@ -40,7 +40,7 @@ function formatTabName(dayOffset) {
 
     // Format for Day Name DD/MM
     const dayName = DAY_NAMES[date.getDay()];
-    const day = date.getDate().toString().padStart(1, '0'); // Single digit day/month is common
+    const day = date.getDate().toString().padStart(1, '0');
     const month = (date.getMonth() + 1).toString().padStart(1, '0');
 
     return `${dayName} ${day}/${month}`;
@@ -49,6 +49,13 @@ function formatTabName(dayOffset) {
 // Function to build and activate the navigation tabs
 function buildTabs() {
     const NAV_CONTAINER = document.getElementById('nav-container');
+    
+    // Safety check to ensure the container exists
+    if (!NAV_CONTAINER) {
+        console.error("NAV_CONTAINER element not found. Check dag0.html structure.");
+        return;
+    }
+    
     NAV_CONTAINER.innerHTML = ''; // Clear existing content
 
     TAB_GIDS.forEach((gid, index) => {
@@ -71,6 +78,7 @@ function buildTabs() {
     // Load the IFRAME source based on the current page's index
     const IFRAME = document.getElementById('sheetFrame');
     if (IFRAME && CURRENT_TAB_INDEX !== undefined) {
+        // This is the CRITICAL line that sets the correct sheet content for the current page
         IFRAME.src = SHEET_BASE_URL + TAB_GIDS[CURRENT_TAB_INDEX];
     }
 }
@@ -79,6 +87,8 @@ function buildTabs() {
 function scheduleDailyUpdate() {
     const now = new Date();
     const fiveAM = new Date(now);
+    
+    // Set target to 5:00:00 AM
     fiveAM.setHours(5, 0, 0, 0);
 
     // If it's already past 5 AM, set the target for 5 AM tomorrow
@@ -90,9 +100,10 @@ function scheduleDailyUpdate() {
 
     setTimeout(() => {
         // When 5 AM hits, rebuild the tabs (updates the dates)
-        buildTabs();
-        // Force the whole page to reload to ensure the browser clears any cache
+        // We force a full page reload to ensure the new date is fully applied 
+        // and browser cache is cleared.
         window.location.reload(true); 
+        
         // Then re-schedule the next 5 AM update
         scheduleDailyUpdate();
     }, delay);
@@ -102,9 +113,7 @@ function scheduleDailyUpdate() {
 // Initialization
 // ----------------------------------------------------
 
-// Run the core function when the page loads
-window.addEventListener('load', buildTabs);
-// Start the daily update timer
+// Run the daily update timer when this file loads
 scheduleDailyUpdate();
-
-// --- OPTIONAL: Your existing clock/update time logic can also be added here ---
+// NOTE: buildTabs is called from the refreshSheet function in dag0.html 
+// to ensure it runs *after* the clock/splash logic is ready.
