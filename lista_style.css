@@ -1,0 +1,6 @@
+/* kiosk_styles.css */
+body { margin: 0; font-family: sans-serif; }
+#tab-mask { /* ... your masking styles ... */ }
+.nav-button { /* ... your button styles ... */ }
+.nav-button.active { /* ... active state styling ... */ }
+/* ... all other styles ... */
