@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kiosk Schema</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="lista_style.css"> 
+</head>
+<body>
+    <div id="clock"></div>
+
+    <div id="nav-container"></div>
+    <div id="tab-mask"></div>
+
+    <iframe id="sheetFrame" src=""></iframe>
+
+    <script>
+        // CRITICAL: Tells the lista_logic.js file which tab index to load and activate
+        let CURRENT_TAB_INDEX = 7; 
+    </script>
+    
+    <script src="lista_logic.js"></script>
+</body>
+</html>
