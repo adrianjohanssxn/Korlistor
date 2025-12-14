@@ -10,7 +10,7 @@
 
 <body>
     <div id="splash"></div>
-    <div id="clock">--:--:--</div>
+    <div id="clock">--:----</div>
     <div id="lastUpdate">Last update: --:--</div>
     <div id="leftStripe"></div>
     
@@ -20,10 +20,11 @@
     <iframe id="sheetFrame" src=""></iframe>
 
     <script>
-        // --- 1. LOCAL CONFIGURATION ---
+        // --- 1. LOCAL CONFIGURATION (Must be defined BEFORE the external script runs) ---
+        // CURRENT_TAB_INDEX for dag0.html
         let CURRENT_TAB_INDEX = 0; 
 
-        // --- 2. EMBEDDED CLOCK/SPLASH LOGIC (Only JavaScript remains here) ---
+        // --- 2. EMBEDDED CLOCK/SPLASH LOGIC (Only JavaScript functions remain here) ---
         const splash = document.getElementById('splash');
         const clock = document.getElementById('clock');
         const lastUpdate = document.getElementById('lastUpdate');
@@ -42,9 +43,12 @@
         setInterval(updateClock, 1000);
         updateClock();
 
+        // This function relies on buildTabs() which is in the external file
         function refreshSheet() {
             splash.classList.remove('hidden');
-            // Call the external buildTabs function to set the iframe src
+            
+            // CRITICAL: We call buildTabs() here. Since lista_logic.js is deferred,
+            // this function will now exist when it is called below.
             buildTabs(); 
             
             const now = new Date();
@@ -53,15 +57,16 @@
             
             setTimeout(() => splash.classList.add('hidden'), splashDuration);
         }
-
+        
         setInterval(refreshSheet, refreshInterval);
 
-        window.addEventListener('load', () => {
-            refreshSheet(); 
-            setTimeout(() => splash.classList.add('hidden'), splashDuration);
-        });
+        // CRITICAL INITIALIZATION: The defer attribute (below) ensures that by the time 
+        // the browser reaches this point, the external script is fully loaded.
+        // Therefore, calling refreshSheet() here is safe.
+        refreshSheet(); 
+        
     </script>
     
-    <script src="lista_logic.js"></script>
+    <script src="lista_logic.js" defer></script>
 </body>
 </html>
