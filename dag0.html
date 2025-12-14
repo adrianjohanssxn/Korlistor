@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kiosk - Day 0</title>
+    <link rel="stylesheet" href="kiosk_styles.css"> 
+</head>
+<body>
+    <div id="splash"></div>
+    <div id="clock"></div>
+    <div id="lastUpdate"></div>
+
+    <div id="nav-container"></div>
+    <iframe id="sheetFrame" src=""></iframe>
+
+    <script>
+        // CRITICAL: Tells the kiosk_logic.js file which tab index to load and activate
+        let CURRENT_TAB_INDEX = 0; 
+    </script>
+    
+    <script src="kiosk_logic.js"></script>
+</body>
+</html>
