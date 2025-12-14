@@ -1,21 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Kiosk Schema</title>
+    <title>Kiosk Schema - Dag 0</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="stylesheet" href="lista_style.css"> 
 </head>
-<body>
-    <div id="clock"></div>
 
+<body>
+    <div id="splash"></div>
+    <div id="clock">--:--:--</div>
+    <div id="lastUpdate">Last update: --:--</div>
+    <div id="leftStripe"></div>
+    
     <div id="nav-container"></div>
-    <div id="tab-mask"></div>
+    <div id="tab-mask"></div> 
 
     <iframe id="sheetFrame" src=""></iframe>
 
     <script>
-        // CRITICAL: Tells the lista_logic.js file which tab index to load and activate
+        // --- 1. LOCAL CONFIGURATION ---
         let CURRENT_TAB_INDEX = 1; 
+
+        // --- 2. EMBEDDED CLOCK/SPLASH LOGIC (Only JavaScript remains here) ---
+        const splash = document.getElementById('splash');
+        const clock = document.getElementById('clock');
+        const lastUpdate = document.getElementById('lastUpdate');
+        const iframe = document.getElementById('sheetFrame');
+
+        const refreshInterval = 30 * 60 * 1000; // 30 minutes
+        const splashDuration = 1500; // 1.5 seconds
+
+        function updateClock() {
+            const now = new Date();
+            clock.textContent =
+                `${String(now.getHours()).padStart(2,'0')}:` +
+                `${String(now.getMinutes()).padStart(2,'0')}:` +
+                `${String(now.getSeconds()).padStart(2,'0')}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        function refreshSheet() {
+            splash.classList.remove('hidden');
+            // Call the external buildTabs function to set the iframe src
+            buildTabs(); 
+            
+            const now = new Date();
+            lastUpdate.textContent =
+                `Last update: ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+            
+            setTimeout(() => splash.classList.add('hidden'), splashDuration);
+        }
+
+        setInterval(refreshSheet, refreshInterval);
+
+        window.addEventListener('load', () => {
+            refreshSheet(); 
+            setTimeout(() => splash.classList.add('hidden'), splashDuration);
+        });
     </script>
     
     <script src="lista_logic.js"></script>
