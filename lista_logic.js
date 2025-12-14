@@ -18,7 +18,7 @@ const TAB_GIDS = [
 // 2. Base URL information
 // Get the long ID from your sheet URL: /d/YOUR_SHEET_KEY_HERE/edit
 const SHEET_KEY = '1g-lihq6fKE0kCmiLdlgjaOfyJ6PcFHr14pH5VC9sxZo'; 
-const SHEET_BASE_URL = `https://docs.google.com/spreadsheets/d/${SHEET_KEY}/edit?single=true&widget=false&chrome=false&readonly=true&gid=`;
+const SHEET_BASE_URL = `https://docs.google.com/spreadsheets/d/${SHEET_KEY}/preview?gid=`;
 
 // 3. Current Tab Identification
 // This variable is defined in the HTML files (dag0.html, dag1.html, etc.)
