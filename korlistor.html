@@ -69,7 +69,8 @@
       z-index: 10000;
       pointer-events: none;
     }
-  </style>
+
+   </style>
 </head>
 
 <body>
@@ -91,12 +92,8 @@
     const lastUpdate = document.getElementById('lastUpdate');
     const iframe = document.getElementById('sheetFrame');
 
-    const refreshInterval = 1 * 60 * 1000; // 5 minutes
+    const refreshInterval = 10 * 60 * 1000;
     const splashDuration = 1500;
-
-    //  Base URL (NO query params here)
-    const sheetBaseUrl =
-      "https://docs.google.com/spreadsheets/d/1g-lihq6fKE0kCmiLdlgjaOfyJ6PcFHr14pH5VC9sxZo/preview";
 
     function updateClock() {
       const now = new Date();
@@ -110,22 +107,21 @@
 
     function refreshSheet() {
       splash.classList.remove('hidden');
-
-      //  FORCE reload with cache buster
-      iframe.src = `${sheetBaseUrl}?t=${Date.now()}`;
-
+      iframe.src = iframe.src;
       const now = new Date();
       lastUpdate.textContent =
         `Last update: ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-
       setTimeout(() => splash.classList.add('hidden'), splashDuration);
     }
 
     setInterval(refreshSheet, refreshInterval);
 
     window.addEventListener('load', () => {
+      setTimeout(() => splash.classList.add('hidden'), splashDuration);
       refreshSheet();
     });
+
+	
   </script>
 
 </body>
